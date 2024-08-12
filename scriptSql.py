@@ -28,24 +28,32 @@ class Sql:
             self.connection = pyodbc.connect(connectionString)
             print(self.connection)
             return 'connection establish successfully'
-            
-
         except Exception as e:
             return "the error '{e}' occured"
+        
     def run_query(self, query):
-        self.cursor = self.connection.cursor()
-        self.cursor.execute(query)
-        records = self.cursor.fetchall()
-        return records
+        try:
+            self.cursor = self.connection.cursor()
+            self.cursor.execute(query)
+            records = self.cursor.fetchall()
+            return records
+        except Exception as e:
+             return "the error '{e}' occured during query process"
     
     def load_data(self, query):
-        df = pd.read_sql_query(query, self.connection)
-        return df
+        try:
+            df = pd.read_sql_query(query, self.connection)
+            return df
+        except Exception as e:
+            return "the error '{e}' occured during data load in pandas"
 
         
     def close_connection(self):
-        if self.cursor:
-            self.cursor.close()
-        if self.connection:
-            self.connection.close()
-        return 'Connection closed'
+        try:
+            if self.cursor:
+                self.cursor.close()
+            if self.connection:
+                self.connection.close()
+            return 'Connection closed'
+        except Exception as e:
+            return "error '{e}' occured during close connection"
