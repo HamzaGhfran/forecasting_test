@@ -3,7 +3,7 @@ import pyodbc
 import pandas as pd
 class Sql:
     """
-    class is created to build connection with Microdoft SQL database.
+    class is created to build connection with Microsoft SQL database.
     Class contain methods and connection attributes
 
     enable_connection(): Method is used to enable connection with database
